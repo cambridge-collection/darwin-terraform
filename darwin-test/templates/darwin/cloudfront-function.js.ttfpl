@@ -81,6 +81,15 @@ function handler(event) {
                 { "location": { "value": "/letter/?docId="+letter_file+'.xml' + anchor } }
         }
     }
+    else if (uri.match('^/(darwin(’|%E2%80%99)s-secretary|case-studies-using-darwin(’|%E2%80%99)s-letters-classroom)')) {
+        let destination = uri.replace(/darwin(’|%E2%80%99)s/i, 'darwin-s')
+        response = {
+            statusCode: 301,
+            statusDescription: 'Moved Permanently',
+            headers:
+                { "location": { "value": destination + anchor } }
+        }
+    }
     else if (uri.endsWith('/')) {
         request.uri += 'index.html';
     }
