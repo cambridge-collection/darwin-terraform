@@ -220,6 +220,16 @@ variable "route53_zone_force_destroy" {
   description = "Whether to destroy all records (possibly managed outside of Terraform) in the zone when destroying the zone"
 }
 
+variable "acm_certificate_arn" {
+  type        = string
+  description = "ARN of an existing ACM certificate suitable for the Route 53 domain"
+}
+
+variable "acm_certificate_arn_us-east-1" {
+  type        = string
+  description = "ARN of an existing ACM certificate in us-east-1 region suitable for the Route 53 domain"
+}
+
 variable "alb_enable_deletion_protection" {
   type        = bool
   description = "Whether to enable deletion protection for the ALB"
