@@ -19,12 +19,15 @@ function handler(event) {
     const url = getLocation('https://www.darwinproject.ac.uk'+ request.uri)
     const uri = url.pathname;
     const anchor = url.hash
-    const is_search = /^\/search([/?]+|$)/ig.test(uri)
+    const is_search = /^\/search(\/+)*$/ig.test(uri)
     const docId = (event.request.querystring['docId']) ? event.request.querystring['docId'].value.replace(/(^(\.\.\/+)+|^\/|\.xml.*$)/,'') : ''
 
     let response = {}
 
-    if (is_search) {
+    if (uri.match('^/searchResults.config.json')) {
+        request.uri = '/searchResults.config.json'
+    }
+    else if (is_search) {
         if (Object.values(event.request.querystring).some(s => /;([-_a-zA-Z0-9]+=)/ig.test(s.value))) {
             let final = []
             Object.keys(event.request.querystring).forEach(key => {
@@ -40,7 +43,7 @@ function handler(event) {
                 statusCode: 301,
                 statusDescription: 'Moved Permanently',
                 headers:
-                    { "location": { "value": "/search/?"+ param_string } }
+                    { "location": { "value": "/search?"+ param_string } }
             }
         } else {
             request.uri = '/search.html'
@@ -56,7 +59,7 @@ function handler(event) {
             statusCode: 301,
             statusDescription: 'Moved Permanently',
             headers:
-                { "location": { "value": "/letter/?docId="+letter_file.replace(/\.xml$/,'')+'.xml' + anchor } }
+                { "location": { "value": "/letter?docId="+letter_file.replace(/\.xml$/,'')+'.xml' + anchor } }
         }
     }
     else if (uri == '/letters-timeline-json') {
@@ -78,7 +81,7 @@ function handler(event) {
             statusCode: 301,
             statusDescription: 'Moved Permanently',
             headers:
-                { "location": { "value": "/letter/?docId="+letter_file+'.xml' + anchor } }
+                { "location": { "value": "/letter?docId="+letter_file+'.xml' + anchor } }
         }
     }
     else if (uri.match('^/(darwin(’|%E2%80%99)s-secretary|case-studies-using-darwin(’|%E2%80%99)s-letters-classroom)')) {
