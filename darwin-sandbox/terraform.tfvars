@@ -32,7 +32,7 @@ transform-lambda-bucket-sqs-notifications = [
 transform-lambda-information = [
   {
     "name"                     = "AWSLambda_TEI_SOLR_Listener"
-    "image_uri"                = "563181399728.dkr.ecr.eu-west-1.amazonaws.com/cudl-solr-listenersha256:88795e469457966c06f62e55c1c217bef3b5fb92c35589bac4a5be735c631689"
+    "image_uri"                = "563181399728.dkr.ecr.eu-west-1.amazonaws.com/cudl-solr-listener@sha256:88795e469457966c06f62e55c1c217bef3b5fb92c35589bac4a5be735c631689"
     "queue_name"               = "DarwinIndexTEIQueue"
     "queue_delay_seconds"      = 10
     "vpc_name"                 = "sandbox-darwin-ecs-vpc"
@@ -53,7 +53,7 @@ transform-lambda-information = [
   },
   {
     "name"                     = "AWSLambda_Pages_SOLR_Listener"
-    "image_uri"                = "563181399728.dkr.ecr.eu-west-1.amazonaws.com/cudl-solr-listenersha256:88795e469457966c06f62e55c1c217bef3b5fb92c35589bac4a5be735c631689"
+    "image_uri"                = "563181399728.dkr.ecr.eu-west-1.amazonaws.com/cudl-solr-listener@sha256:88795e469457966c06f62e55c1c217bef3b5fb92c35589bac4a5be735c631689"
     "queue_name"               = "DarwinIndexPagesQueue"
     "vpc_name"                 = "sandbox-darwin-ecs-vpc"
     "subnet_names"             = ["sandbox-darwin-ecs-subnet-private-a", "sandbox-darwin-ecs-subnet-private-b"]
@@ -112,8 +112,8 @@ solr_domain_name       = "darwin-search"
 solr_application_port  = 8983
 solr_target_group_port = 8081
 solr_ecr_repositories = {
-  "darwin/solr-api" = "sha256:e6bb816b883f051edac6d32633d764a247cef7238b14d983b3a7851a118485c6",
-  "darwin/solr"     = "sha256:838e7803e2120faaa213d7f40c787dbf207f836aa41cfc05d479ca057ba05a38"
+  "darwin-solr-api" = "sha256:aa600633e02e8b2c879fb901a3b70e31664c17f5c81e06242fadb6f0d0f71158",
+  "darwin-solr"     = "sha256:ba599761fdc03d65e4e6003690ec17616de96f8e93fd97b7c2d8a04abf74b958"
 }
 solr_ecs_task_def_volumes     = { "solr-volume" = "/var/solr" }
 solr_container_name_api       = "solr-api"
