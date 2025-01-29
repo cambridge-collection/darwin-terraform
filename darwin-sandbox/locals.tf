@@ -1,5 +1,5 @@
 locals {
-  environment      = var.environment
+  environment      = lower(join("-", [var.project, var.environment]))
   base_name_prefix = join("-", compact([local.environment, var.cluster_name_suffix]))
   default_tags = {
     Environment  = title(var.environment)
