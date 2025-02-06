@@ -10,3 +10,15 @@ data "aws_ecr_image" "solr" {
   image_digest    = each.value
 }
 
+data "aws_ssm_parameter" "cudl_viewer_cloudfront_username" {
+  name = "/Environments/${title(local.environment)}/CUDL/Viewer/CloudFront/Username"
+}
+
+data "aws_ssm_parameter" "cudl_viewer_cloudfront_password" {
+  name = "/Environments/${title(local.environment)}/CUDL/Viewer/CloudFront/Password"
+}
+
+data "aws_ssm_parameter" "cudl_viewer_cloudfront_secret" {
+  name = "/Environments/${title(local.environment)}/CUDL/Viewer/CloudFront/Secret"
+}
+

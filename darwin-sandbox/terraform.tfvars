@@ -104,7 +104,7 @@ alb_enable_deletion_protection = false
 alb_idle_timeout               = "900"
 vpc_cidr_block                 = "10.42.0.0/22" #1024 adresses
 vpc_public_subnet_public_ip    = false
-cloudwatch_log_group           = "/ecs/Darwin"
+cloudwatch_log_group           = "/ecs/darwin-sandbox"
 
 # SOLR Worload
 solr_name_suffix       = "solr"
@@ -112,7 +112,7 @@ solr_domain_name       = "darwin-search"
 solr_application_port  = 8983
 solr_target_group_port = 8081
 solr_ecr_repositories = {
-  "darwin-solr-api" = "sha256:378fd16a21463287d455045ea8cda29e08952778d23179e9e233d0417e9c9423",
+  "darwin-solr-api" = "sha256:b8aea110a6678d968a82259e8e8585e7b0e7220f9ebf43138b92add987758f6a",
   "darwin-solr"     = "sha256:61a3408a95e2769d13306c9762525f6966d4dbe2ece52519424e244be8788c70"
 }
 solr_ecs_task_def_volumes     = { "solr-volume" = "/var/solr" }
