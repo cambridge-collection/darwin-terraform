@@ -92,6 +92,7 @@ module "solr" {
   cloudwatch_log_group_arn                       = module.base_architecture.cloudwatch_log_group_arn
   cloudfront_waf_acl_arn                         = aws_wafv2_web_acl.solr.arn # custom WAF ACL for SOLR
   cloudfront_allowed_methods                     = var.solr_allowed_methods
+  cloudfront_viewer_request_function_arn         = aws_cloudfront_function.search.arn
   allow_private_access                           = var.solr_use_service_discovery
   ingress_security_group_id                      = aws_security_group.solr.id
   efs_create_file_system                         = true
