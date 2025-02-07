@@ -58,7 +58,7 @@ async function handler(event) {
     let request = event.request;
     const domainTld = ('host' in request.headers) ?  (request.headers.host.value).split(/\./).slice(-2).join('.') : 'cudl-sandbox.net';
     const cookieKey = domainTld+"Key"
-    if (request.method == 'GET') {
+    if (['GET','HEAD','OPTIONS'].includes(request.method)) {
         try {
             secret = await kvsHandle.get(keySecret)
             privateSite = await kvsHandle.get(KeyPrivateSite)
@@ -92,7 +92,10 @@ async function handler(event) {
         }
     }
     else {
-        // Access to PUT and DELETE controlled by ALB/WAF so no need for security
-        return request
+        // Only GET, HEAD and OPTIONS are allowed
+        return {
+            statusCode: 401,
+            statusDescription: "Unauthorized",
+        };
     }
 }
