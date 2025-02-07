@@ -71,7 +71,7 @@ async function handler(event) {
         const jwt_token = (cookieKey in request.cookies) ? request.cookies[cookieKey].value : ''
         if (privateSite && jwt_token != '') {
             let auth_result = false
-        try {
+            try {
                 auth_result = jwt_valid(jwt_token, secret)
             }
             catch(err)  {
