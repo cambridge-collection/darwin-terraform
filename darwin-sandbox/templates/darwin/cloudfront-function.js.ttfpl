@@ -5,18 +5,21 @@ import cf from 'cloudfront';
 
 const kvsHandle = cf.kvs();
 
-const KeyPrivateSite = "privateSite"
+const keyPrivateSite = "privateSite"
 const keyPass = "password";
 const keyUser = "username";
 const keyDomain = "domain"
 const keySecret = "secret"
+const keyJwtDuration = "jwtDuration"
 let user = "Not Found";
 let pass = "Not found";
 let domain = "Not Found"
 let secret = "Not Found"
-let privateSite = "No Found"
+let privateSite = "Not Found"
+let jwtDuration = 60*60*1000
 
-const now = new Date() / 1000
+const now = new Date()
+const now_sec = now / 1000
 
 function getLocation(href) {
     var match = href.match(/^(https?\:)\/\/(([^:\/?#]*)(?:\:([0-9]+))?)([\/]{0,1}[^?#]*)(\?[^#]*|)(#.*|)$/);
@@ -30,6 +33,20 @@ function getLocation(href) {
         search: match[6],
         hash: match[7]
     }
+}
+
+function jwt_is_expired(received_token) {
+    let result = true
+    if (received_token) {
+        const segments = received_token.split('.');
+        if (segments.length === 3) {
+            const payload = JSON.parse(atob(segments[1]))
+            if ('exp' in payload && !isNaN(payload['exp'])) {
+                result = (payload['exp'] <= now_sec)
+            }
+        }
+    }
+    return result
 }
 
 function jwt_generate(header, payload, secret) {
@@ -52,10 +69,12 @@ async function handler(event) {
         user = await kvsHandle.get(keyUser)
         secret = await kvsHandle.get(keySecret)
         domain = await kvsHandle.get(keyDomain)
-        privateSite = await kvsHandle.get(KeyPrivateSite)
+        privateSite = await kvsHandle.get(keyPrivateSite)
+        jwtDuration = await kvsHandle.get(keyJwtDuration)
     } catch (err) {
         console.log(`Kvs key lookup failed: ${err}`);
     }
+    jwtDuration = (!isNaN(jwtDuration)) ? parseInt(jwtDuration) : 60*60*1000
     privateSite = (privateSite === 'true') ? true: false
     const requiredBasicAuth = "Basic " + btoa(`${user}:${pass}`);
     let isAuthorised = false;
@@ -64,6 +83,8 @@ async function handler(event) {
     if (privateSite && request.headers.authorization) {
         if (request.headers.authorization.value === requiredBasicAuth) {
             isAuthorised = true;
+            const token_expires_sec = new Date(now.valueOf() + jwtDuration)/1000
+
             const header = {
                 "alg": "RS256",
                 "typ": "JWT"
@@ -71,11 +92,13 @@ async function handler(event) {
 
             const claims = {
                 "iss": domainTld,
-                "iat": now
+                "iat": now_sec,
+                "exp": token_expires_sec
             }
 
             const token = jwt_generate(header, claims, secret)
-            if (!(cookieKey in request.cookies)) {
+            const token_expired = (cookieKey in request.cookies) ? jwt_is_expired(request.cookies[cookieKey].value) : true
+            if (!(cookieKey in request.cookies) || token_expired) {
                 // No cookie
                 redirectAfterAuth = true
             }
