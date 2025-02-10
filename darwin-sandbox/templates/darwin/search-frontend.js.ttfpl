@@ -7,11 +7,13 @@ const kvsHandle = cf.kvs();
 
 const KeyPrivateSite = "privateSite"
 const keySecret = "secret"
+const keyJwtDuration = "jwtDuration"
 let secret = "Not Found"
 let privateSite = "Not Found"
+let jwtDuration = 60*60*1000
 
-
-const now = new Date() / 1000
+const now = new Date()
+const now_sec = now / 1000
 
 function jwt_generate(header, payload, secret) {
     const header_64 = btoa(JSON.stringify(header))
@@ -22,6 +24,20 @@ function jwt_generate(header, payload, secret) {
     const sigBase64_2 = sig_2.digest('base64');
     const sig_final = Buffer.from (sigBase64_2).toString('utf8')
     return[signingInput, sig_final].join('.');
+}
+
+function jwt_is_expired(received_token) {
+    let result = true
+    if (received_token) {
+        const segments = received_token.split('.');
+        if (segments.length === 3) {
+            const payload = JSON.parse(atob(segments[1]))
+            if ('exp' in payload && !isNaN(payload['exp'])) {
+                result = (payload['exp'] <= now_sec)
+            }
+        }
+    }
+    return result
 }
 
 function jwt_valid(received_token, secret) {
@@ -62,23 +78,29 @@ async function handler(event) {
         try {
             secret = await kvsHandle.get(keySecret)
             privateSite = await kvsHandle.get(KeyPrivateSite)
+            jwtDuration = await kvsHandle.get(keyJwtDuration)
         } catch (err) {
             console.log(`Kvs key lookup failed: ${err}`);
         }
 
         privateSite = (privateSite === 'true') ? true: false
+        jwtDuration = (!isNaN(jwtDuration)) ? parseInt(jwtDuration) : 60*60*1000
         let isAuthorised = false;
         const jwt_token = (cookieKey in request.cookies) ? request.cookies[cookieKey].value : ''
         if (privateSite && jwt_token != '') {
-            let auth_result = false
-            try {
-                auth_result = jwt_valid(jwt_token, secret)
-            }
-            catch(err)  {
-                console.log(`${err}`);
-            }
-            if (auth_result) {
-                isAuthorised = true
+            if (!jwt_is_expired(jwt_token)) {
+                //console.log('Token still active')
+                let auth_result = false
+                try {
+                    auth_result = jwt_valid(jwt_token, secret)
+                } catch (err) {
+                    console.log(`${err}`);
+                }
+                if (auth_result) {
+                    isAuthorised = true
+                }
+            } else {
+                console.log('JWT expired')
             }
         }
         if (!privateSite || isAuthorised ) {
