@@ -112,7 +112,7 @@ solr_domain_name       = "darwin-editorial-search"
 solr_application_port  = 8983
 solr_target_group_port = 8081
 solr_ecr_repositories = {
-  "darwin-solr-api" = "sha256:ddd19d9219e9f481ab52a32c0ca0e6c19267dacc0d185bf50807d44db97f4991",
+  "darwin-solr-api" = "sha256:9a59694417e8545fdc8382a5a032193fc16188b28d946dc628dbd5e93c1718e4",
   "darwin-solr"     = "sha256:93e2e258b2985abd4c5180d1f1d3f758ebf44a00dba38b6886e2522627e0b321"
 }
 solr_ecs_task_def_volumes     = { "solr-volume" = "/var/solr" }
