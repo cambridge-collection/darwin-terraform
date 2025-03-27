@@ -80,7 +80,7 @@ lambda-alias-name = "LIVE"
 
 releases-root-directory-path        = "/data"
 efs-name                            = "cudl-data-releases-efs"
-cloudfront_route53_zone_id          = "Z035173135AOVWW8L57UJ"
+cloudfront_route53_zone_id          = "Z0526070386P5IAM6T0L4"
 cloudfront_distribution_name        = "darwin-editorial"
 cloudfront_origin_path              = "/www"
 cloudfront_error_response_page_path = "/404.html"
@@ -97,12 +97,13 @@ ec2_additional_userdata = <<-EOF
 echo 1 > /proc/sys/vm/swappiness
 echo ECS_RESERVED_MEMORY=256 >> /etc/ecs/ecs.config
 EOF
-#route53_delegation_set_id      = "N02288771HQRX5TRME6CM"
-route53_zone_id_existing       = "Z035173135AOVWW8L57UJ"
-route53_zone_force_destroy     = true
+route53_zone_id_existing       = "Z0526070386P5IAM6T0L4"
+route53_zone_force_destroy     = false
+acm_certificate_arn            = "arn:aws:acm:eu-west-1:330100528433:certificate/f8efa931-6cb9-4146-b025-a208b669a2b5"
+acm_certificate_arn_us-east-1  = "arn:aws:acm:us-east-1:330100528433:certificate/d62f5c3e-89dc-4b4d-abbf-eca9fdaa2b9f"
 alb_enable_deletion_protection = false
 alb_idle_timeout               = "900"
-vpc_cidr_block                 = "10.42.0.0/22" #1024 adresses
+vpc_cidr_block                 = "10.84.0.0/22" #1024 adresses
 vpc_public_subnet_public_ip    = false
 cloudwatch_log_group           = "/ecs/darwin-editorial"
 
