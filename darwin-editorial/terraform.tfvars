@@ -3,7 +3,7 @@ project                      = "Darwin"
 component                    = "cudl-data-workflows"
 subcomponent                 = "cudl-transform-lambda"
 destination-bucket-name      = "releases"
-web_frontend_domain_name     = "darwin-editorial.cudl-sandbox.net"
+web_frontend_domain_name     = "darwin-editorial.darwinproject.ac.uk"
 transcriptions-bucket-name   = "unused-cul-cudl-transcriptions"
 enhancements-bucket-name     = "unused-cul-cudl-data-enhancements"
 source-bucket-name           = "unused-cul-cudl-data-source"
@@ -32,7 +32,7 @@ transform-lambda-bucket-sqs-notifications = [
 transform-lambda-information = [
   {
     "name"                     = "AWSLambda_TEI_SOLR_Listener"
-    "image_uri"                = "563181399728.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:0740b28386ecfc5533504ead8dd9bf01bd8781be8a33cf7a88688f366e24bbbf"
+    "image_uri"                = "330100528433.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:17bd89f36ba61533b874ec73cf6f874fb82cad3846dbb6c5eaf058764597eb9e"
     "queue_name"               = "DarwinIndexTEIQueue"
     "queue_delay_seconds"      = 10
     "vpc_name"                 = "darwin-editorial-darwin-ecs-vpc"
@@ -53,7 +53,7 @@ transform-lambda-information = [
   },
   {
     "name"                     = "AWSLambda_Pages_SOLR_Listener"
-    "image_uri"                = "563181399728.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:0740b28386ecfc5533504ead8dd9bf01bd8781be8a33cf7a88688f366e24bbbf"
+    "image_uri"                = "330100528433.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:17bd89f36ba61533b874ec73cf6f874fb82cad3846dbb6c5eaf058764597eb9e"
     "queue_name"               = "DarwinIndexPagesQueue"
     "vpc_name"                 = "darwin-editorial-darwin-ecs-vpc"
     "subnet_names"             = ["darwin-editorial-darwin-ecs-subnet-private-a", "darwin-editorial-darwin-ecs-subnet-private-b"]
@@ -88,7 +88,7 @@ cloudfront_default_root_object      = "index.html"
 
 # Base Architecture
 cluster_name_suffix     = "darwin-ecs"
-registered_domain_name  = "cudl-sandbox.net."
+registered_domain_name  = "darwinproject.ac.uk."
 asg_desired_capacity    = 1 # n = number of tasks
 asg_max_size            = 1 # n + 1
 asg_allow_all_egress    = true
@@ -112,8 +112,8 @@ solr_domain_name       = "darwin-editorial-search"
 solr_application_port  = 8983
 solr_target_group_port = 8081
 solr_ecr_repositories = {
-  "darwin-solr-api" = "sha256:9a59694417e8545fdc8382a5a032193fc16188b28d946dc628dbd5e93c1718e4",
-  "darwin-solr"     = "sha256:93e2e258b2985abd4c5180d1f1d3f758ebf44a00dba38b6886e2522627e0b321"
+  "darwin/solr-api" = "sha256:733d04e4a8378093d2eae0bf62fef84e02a3ce46021a3f6aeef1cd542f9debae",
+  "darwin/solr"     = "sha256:9b471e477a6d2aa8a671773f9c91a6c1489bfb96b11ecc682b4ca56c3ed3802c"
 }
 solr_ecs_task_def_volumes     = { "solr-volume" = "/var/solr" }
 solr_container_name_api       = "solr-api"
