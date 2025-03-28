@@ -35,7 +35,7 @@ resource "aws_cloudfrontkeyvaluestore_key" "password" {
 resource "aws_cloudfrontkeyvaluestore_key" "domain" {
   key_value_store_arn = aws_cloudfront_key_value_store.viewer.arn
   key                 = "domain"
-  value               = "cudl-sandbox.net"
+  value               = "darwinproject.ac.uk"
   # The value should be generated from registered_domain_name (with a replace to remove trailing period)
 }
 

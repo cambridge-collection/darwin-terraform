@@ -78,7 +78,7 @@ async function handler(event) {
     privateSite = (privateSite === 'true') ? true: false
     const requiredBasicAuth = "Basic " + btoa(`${user}:${pass}`);
     let isAuthorised = false;
-    const domainTld = ('host' in request.headers) ?  (request.headers.host.value).split(/\./).slice(-2).join('.') : domain;
+    const domainTld = ('host' in request.headers) ?  (request.headers.host.value).split(/\./).slice(-3).join('.') : domain;
     const cookieKey = domainTld+"Key"
     if (privateSite && request.headers.authorization) {
         if (request.headers.authorization.value === requiredBasicAuth) {
