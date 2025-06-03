@@ -43,6 +43,9 @@ For more information see
 
 https://www.terraform-best-practices.com/
 
+**Important:** If you are creating a new environment, you will need to create the Cloudwatch log group for the solr ecs 
+manually. The log group's name is stored in `cloudwatch_log_group` in your environment's `terraform.tfvars`. 
+
 ## State
 
 State is stored in S3, and will be picked up automatically from the init command.
