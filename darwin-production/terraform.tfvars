@@ -99,8 +99,8 @@ echo ECS_RESERVED_MEMORY=256 >> /etc/ecs/ecs.config
 EOF
 route53_zone_id_existing       = "Z0526070386P5IAM6T0L4"
 route53_zone_force_destroy     = false
-acm_certificate_arn            = "arn:aws:acm:eu-west-1:330100528433:certificate/f8efa931-6cb9-4146-b025-a208b669a2b5"
-acm_certificate_arn_us-east-1  = "arn:aws:acm:us-east-1:330100528433:certificate/d62f5c3e-89dc-4b4d-abbf-eca9fdaa2b9f"
+acm_certificate_arn            = "arn:aws:acm:eu-west-1:330100528433:certificate/9736e15a-8e42-43e5-8b4c-aa5e96aece65"
+acm_certificate_arn_us-east-1  = "arn:aws:acm:us-east-1:330100528433:certificate/abac10bc-4e17-419c-beef-16077f78e2d3"
 alb_enable_deletion_protection = false
 alb_idle_timeout               = "900"
 vpc_cidr_block                 = "10.23.0.0/22" #1024 adresses
