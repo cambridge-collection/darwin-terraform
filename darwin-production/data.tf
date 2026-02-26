@@ -9,4 +9,3 @@ data "aws_ecr_image" "solr" {
   repository_name = each.key
   image_digest    = each.value
 }
-
