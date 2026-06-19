@@ -115,7 +115,7 @@ solr_domain_name       = "search"
 solr_application_port  = 8983
 solr_target_group_port = 8081
 solr_ecr_repositories = {
-  "darwin/solr-api" = "sha256:a1e88a9452d59239ee58494d3ec3f0df04ef552adebb599fb867c3a88418ddde",
+  "darwin/solr-api" = "sha256:ec013710a5c452f4de4456b949e3599429bca8c12aff87eb4cc3094a6bc49c78",
   "darwin/solr"     = "sha256:838e7803e2120faaa213d7f40c787dbf207f836aa41cfc05d479ca057ba05a38"
 }
 solr_ecs_task_def_volumes     = { "solr-volume" = "/var/solr" }
