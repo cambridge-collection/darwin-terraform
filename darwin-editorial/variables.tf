@@ -154,6 +154,18 @@ variable "cloudfront_error_response_page_path" {
   type        = string
 }
 
+variable "cloudfront_access_logging" {
+  description = "Whether to log CloudFront requests for cudl-data-processing distribution"
+  type        = bool
+  default     = false
+}
+
+variable "cloudfront_access_logging_bucket" {
+  description = "S3 bucket domain name for CloudFront access logs"
+  type        = string
+  default     = null
+}
+
 variable "cloudfront_default_root_object" {
   type        = string
   description = "Object that you want CloudFront to return (for example, index.html) when an end user requests the root URL"

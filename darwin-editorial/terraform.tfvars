@@ -85,6 +85,8 @@ cloudfront_distribution_name        = "darwin-editorial"
 cloudfront_origin_path              = "/www"
 cloudfront_error_response_page_path = "/404.html"
 cloudfront_default_root_object      = "index.html"
+cloudfront_access_logging           = false
+cloudfront_access_logging_bucket    = null
 
 # Base Architecture
 cluster_name_suffix            = "darwin-ecs"

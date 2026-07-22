@@ -57,6 +57,8 @@ module "cudl-data-processing" {
   cloudfront_default_root_object            = var.cloudfront_default_root_object
   cloudfront_origin_path                    = var.cloudfront_origin_path
   cloudfront_error_response_page_path       = var.cloudfront_error_response_page_path
+  cloudfront_access_logging                 = var.cloudfront_access_logging
+  cloudfront_access_logging_bucket          = var.cloudfront_access_logging_bucket
   cloudfront_viewer_request_function_arn    = aws_cloudfront_function.darwin.arn
   acm_create_certificate                    = false
   acm_certificate_arn                       = var.acm_certificate_arn_us-east-1
