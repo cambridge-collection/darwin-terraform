@@ -36,7 +36,7 @@ transform-lambda-information = [
     "queue_name"               = "DarwinIndexTEIQueue"
     "queue_delay_seconds"      = 10
     "vpc_name"                 = "darwin-editorial-darwin-ecs-vpc"
-    "subnet_names"             = ["darwin-editorial-darwin-ecs-subnet-private-a", "darwin-editorial-darwin-ecs-subnet-private-b"]
+    "subnet_names"             = ["darwin-editorial-darwin-ecs-subnet-private-eu-west-1a", "darwin-editorial-darwin-ecs-subnet-private-eu-west-1b"]
     "security_group_names"     = ["darwin-editorial-darwin-ecs-vpc-egress", "darwin-editorial-solr-external"]
     "timeout"                  = 180
     "memory"                   = 1024
@@ -56,7 +56,7 @@ transform-lambda-information = [
     "image_uri"                = "330100528433.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:17bd89f36ba61533b874ec73cf6f874fb82cad3846dbb6c5eaf058764597eb9e"
     "queue_name"               = "DarwinIndexPagesQueue"
     "vpc_name"                 = "darwin-editorial-darwin-ecs-vpc"
-    "subnet_names"             = ["darwin-editorial-darwin-ecs-subnet-private-a", "darwin-editorial-darwin-ecs-subnet-private-b"]
+    "subnet_names"             = ["darwin-editorial-darwin-ecs-subnet-private-eu-west-1a", "darwin-editorial-darwin-ecs-subnet-private-eu-west-1b"]
     "security_group_names"     = ["darwin-editorial-darwin-ecs-vpc-egress", "darwin-editorial-solr-external"]
     "timeout"                  = 180
     "memory"                   = 1024
@@ -87,13 +87,13 @@ cloudfront_error_response_page_path = "/404.html"
 cloudfront_default_root_object      = "index.html"
 
 # Base Architecture
-cluster_name_suffix     = "darwin-ecs"
-registered_domain_name  = "darwinproject.ac.uk."
-asg_desired_capacity    = 1 # n = number of tasks
-asg_max_size            = 1 # n + 1
-asg_allow_all_egress    = true
-ec2_instance_type       = "t3.large"
-ec2_additional_userdata = <<-EOF
+cluster_name_suffix            = "darwin-ecs"
+registered_domain_name         = "darwinproject.ac.uk."
+asg_desired_capacity           = 1 # n = number of tasks
+asg_max_size                   = 1 # n + 1
+asg_allow_all_egress           = true
+ec2_instance_type              = "t3.large"
+ec2_additional_userdata        = <<-EOF
 echo 1 > /proc/sys/vm/swappiness
 echo ECS_RESERVED_MEMORY=256 >> /etc/ecs/ecs.config
 EOF
