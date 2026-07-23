@@ -162,17 +162,23 @@ async function handler(event) {
                 request.uri = '/search.html'
             }
         }
-        else if (uri.match('^/letter(/|$)') && docId.match('(bibliographies|documentation|letters|nameregs|repo)/')) {
+        else if (uri.match('^/letter(/|$)') && docId.match('(letters|nameregs|repo)/')) {
             let param_string_anchor = event.request.querystring['docId'].value.replace(/^[^#]+/, '')
-            request.uri ="/view/"+docId+'.html' + param_string_anchor
-        }
-        else if (uri.match('^/(((darwinletters/calendar/)*entry-*|DCP-LETT-)[0-9]|letter/DCP-LETT-[0-9])')) {
-            let letter_file = uri.replace(/^\/(((darwinletters\/calendar\/)*entry-*|DCP-LETT-)|letter\/DCP-LETT-)/i, 'letters/DCP-LETT-')
             response = {
                 statusCode: 301,
                 statusDescription: 'Moved Permanently',
                 headers:
-                    { "location": { "value": "/letter?docId="+letter_file.replace(/\.xml$/,'')+'.xml' + anchor } }
+                    { "location": { "value": "/view/"+docId + param_string_anchor } }
+            }
+        }
+        else if (uri.match('^/(((darwinletters/calendar/)*entry-*|DCP-LETT-)[0-9]|letter/DCP-LETT-[0-9])')) {
+            let letter_file = uri.replace(/^\/(((darwinletters\/calendar\/)*entry-*|DCP-LETT-)|letter\/DCP-LETT-)/i, 'letters/DCP-LETT-')
+            letter_file = letter_file.replace(/\.xml$/, '')
+            response = {
+                statusCode: 301,
+                statusDescription: 'Moved Permanently',
+                headers:
+                    { "location": { "value": "/view/"+letter_file + anchor } }
             }
         }
         else if (uri == '/letters-timeline-json') {
@@ -194,7 +200,7 @@ async function handler(event) {
                 statusCode: 301,
                 statusDescription: 'Moved Permanently',
                 headers:
-                    { "location": { "value": "/letter?docId="+letter_file+'.xml' + anchor } }
+                    { "location": { "value": "/view/"+letter_file + anchor } }
             }
         }
         else if (uri.match('^/(darwin(’|%E2%80%99)s-secretary|case-studies-using-darwin(’|%E2%80%99)s-letters-classroom)')) {
