@@ -32,7 +32,7 @@ transform-lambda-bucket-sqs-notifications = [
 transform-lambda-information = [
   {
     "name"                     = "AWSLambda_TEI_SOLR_Listener"
-    "image_uri"                = "330100528433.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:17bd89f36ba61533b874ec73cf6f874fb82cad3846dbb6c5eaf058764597eb9e"
+    "image_uri"                = "330100528433.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:2c430a240c8716a5791e13d96928a14a10ac6075c185566233fa07ef094d513e"
     "queue_name"               = "DarwinIndexTEIQueue"
     "queue_delay_seconds"      = 10
     "vpc_name"                 = "darwin-editorial-darwin-ecs-vpc"
@@ -53,7 +53,7 @@ transform-lambda-information = [
   },
   {
     "name"                     = "AWSLambda_Pages_SOLR_Listener"
-    "image_uri"                = "330100528433.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:17bd89f36ba61533b874ec73cf6f874fb82cad3846dbb6c5eaf058764597eb9e"
+    "image_uri"                = "330100528433.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:2c430a240c8716a5791e13d96928a14a10ac6075c185566233fa07ef094d513e"
     "queue_name"               = "DarwinIndexPagesQueue"
     "vpc_name"                 = "darwin-editorial-darwin-ecs-vpc"
     "subnet_names"             = ["darwin-editorial-darwin-ecs-subnet-private-eu-west-1a", "darwin-editorial-darwin-ecs-subnet-private-eu-west-1b"]
@@ -117,8 +117,8 @@ solr_domain_name       = "darwin-editorial-search"
 solr_application_port  = 8983
 solr_target_group_port = 8081
 solr_ecr_repositories = {
-  "darwin/solr-api" = "sha256:733d04e4a8378093d2eae0bf62fef84e02a3ce46021a3f6aeef1cd542f9debae",
-  "darwin/solr"     = "sha256:9b471e477a6d2aa8a671773f9c91a6c1489bfb96b11ecc682b4ca56c3ed3802c"
+  "darwin/solr-api" = "sha256:ec013710a5c452f4de4456b949e3599429bca8c12aff87eb4cc3094a6bc49c78",
+  "darwin/solr"     = "sha256:838e7803e2120faaa213d7f40c787dbf207f836aa41cfc05d479ca057ba05a38"
 }
 solr_ecs_task_def_volumes     = { "solr-volume" = "/var/solr" }
 solr_container_name_api       = "solr-api"
