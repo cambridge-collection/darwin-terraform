@@ -4,6 +4,8 @@
 .terraform
 .terraform.lock.hcl
 local.tfvars
+*.tfstate
+*.tfstate.*
 
 # General ignores 
 
