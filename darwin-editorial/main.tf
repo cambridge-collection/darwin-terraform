@@ -26,7 +26,7 @@ module "base_architecture" {
 }
 
 module "cudl-data-processing" {
-  source                                    = "git::https://github.com/cambridge-collection/cudl-terraform.git//modules/cudl-data-processing?ref=rate_limit_with_path"
+  source                                    = "git::https://github.com/cambridge-collection/cudl-terraform.git//modules/cudl-data-processing?ref=caching"
   production_deployment                     = true
   compressed-lambdas-directory              = var.compressed-lambdas-directory
   destination-bucket-name                   = var.destination-bucket-name
@@ -65,8 +65,7 @@ module "cudl-data-processing" {
   waf_use_rate_limiting                     = true
   waf_rate_limit                            = 300
   waf_rate_limiting_evaluation_window       = 300
-  waf_rate_limiting_scope_down_uri          = "/search"
-  waf_rate_limiting_scope_down_match_type   = "STARTS_WITH"
+  waf_rate_limiting_scope_down_uris         = [{ uri = "/search" }]
   waf_ip_allow_list_addresses               = ["131.111.0.0/16"]
   waf_ip_allow_list_name                    = "cam-univ"
   acm_create_certificate                    = false
