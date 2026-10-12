@@ -70,3 +70,15 @@ moved {
   from = module.base_architecture.aws_eip.nat_a
   to   = module.base_architecture.aws_eip.nat[0]
 }
+
+# cudl-data-processing v1.3.0 switched the SQS event source mappings from count to
+# for_each keyed by list index, so [n] becomes ["n"]. Without these the mappings are
+# destroyed and recreated, which can conflict on the same queue/function pair.
+moved {
+  from = module.cudl-data-processing.aws_lambda_event_source_mapping.sqs-trigger-lambda-transforms[0]
+  to   = module.cudl-data-processing.aws_lambda_event_source_mapping.sqs-trigger-lambda-transforms["0"]
+}
+moved {
+  from = module.cudl-data-processing.aws_lambda_event_source_mapping.sqs-trigger-lambda-transforms[1]
+  to   = module.cudl-data-processing.aws_lambda_event_source_mapping.sqs-trigger-lambda-transforms["1"]
+}
