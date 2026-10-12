@@ -32,7 +32,7 @@ transform-lambda-bucket-sqs-notifications = [
 transform-lambda-information = [
   {
     "name"                     = "AWSLambda_TEI_SOLR_Listener"
-    "image_uri"                = "330100528433.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:2c430a240c8716a5791e13d96928a14a10ac6075c185566233fa07ef094d513e"
+    "image_uri"                = "330100528433.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:1510948776b69e3bbd71ceb162b28f9a7585051d60b0d3516902d988c3796660"
     "queue_name"               = "DarwinIndexTEIQueue"
     "queue_delay_seconds"      = 10
     "vpc_name"                 = "darwin-editorial-darwin-ecs-vpc"
@@ -42,7 +42,7 @@ transform-lambda-information = [
     "memory"                   = 1024
     "batch_window"             = 2
     "batch_size"               = 1
-    "maximum_concurrency"      = 50
+    "maximum_concurrency"      = 4
     "use_datadog_variables"    = false
     "use_additional_variables" = true
     "environment_variables" = {
@@ -53,7 +53,7 @@ transform-lambda-information = [
   },
   {
     "name"                     = "AWSLambda_Pages_SOLR_Listener"
-    "image_uri"                = "330100528433.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:2c430a240c8716a5791e13d96928a14a10ac6075c185566233fa07ef094d513e"
+    "image_uri"                = "330100528433.dkr.ecr.eu-west-1.amazonaws.com/darwin/solr-listener@sha256:1510948776b69e3bbd71ceb162b28f9a7585051d60b0d3516902d988c3796660"
     "queue_name"               = "DarwinIndexPagesQueue"
     "vpc_name"                 = "darwin-editorial-darwin-ecs-vpc"
     "subnet_names"             = ["darwin-editorial-darwin-ecs-subnet-private-eu-west-1a", "darwin-editorial-darwin-ecs-subnet-private-eu-west-1b"]
@@ -62,7 +62,7 @@ transform-lambda-information = [
     "memory"                   = 1024
     "batch_window"             = 2
     "batch_size"               = 1
-    "maximum_concurrency"      = 50
+    "maximum_concurrency"      = 4
     "use_datadog_variables"    = false
     "use_additional_variables" = true
     "environment_variables" = {
@@ -117,8 +117,8 @@ solr_domain_name       = "darwin-editorial-search"
 solr_application_port  = 8983
 solr_target_group_port = 8081
 solr_ecr_repositories = {
-  "darwin/solr-api" = "sha256:c20919f85c80251ccbda6cebe8b4595a34d9db1234b717067759dd3b31bc5b69",
-  "darwin/solr"     = "sha256:838e7803e2120faaa213d7f40c787dbf207f836aa41cfc05d479ca057ba05a38"
+  "darwin/solr-api" = "sha256:5e82756538df9232cd0428890a916ef1ee8a6c7afa555ae275554207a1c18561",
+  "darwin/solr"     = "sha256:aa084c7cab29f51c32fd5ea17e6863f63901665fa40ada9752c82139a0aea5f7"
 }
 solr_ecs_task_def_volumes     = { "solr-volume" = "/var/solr" }
 solr_container_name_api       = "solr-api"
