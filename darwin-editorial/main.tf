@@ -25,8 +25,20 @@ module "base_architecture" {
   }
 }
 
+# v1.3.0 switched the SQS event source mappings from count to for_each.
+# Without these the mappings are destroyed and recreated, detaching the SOLR triggers mid-apply.
+moved {
+  from = module.cudl-data-processing.aws_lambda_event_source_mapping.sqs-trigger-lambda-transforms[0]
+  to   = module.cudl-data-processing.aws_lambda_event_source_mapping.sqs-trigger-lambda-transforms["0"]
+}
+
+moved {
+  from = module.cudl-data-processing.aws_lambda_event_source_mapping.sqs-trigger-lambda-transforms[1]
+  to   = module.cudl-data-processing.aws_lambda_event_source_mapping.sqs-trigger-lambda-transforms["1"]
+}
+
 module "cudl-data-processing" {
-  source                                    = "git::https://github.com/cambridge-collection/cudl-terraform.git//modules/cudl-data-processing?ref=caching"
+  source                                    = "git::https://github.com/cambridge-collection/cudl-terraform.git//modules/cudl-data-processing?ref=v1.3.0"
   production_deployment                     = true
   compressed-lambdas-directory              = var.compressed-lambdas-directory
   destination-bucket-name                   = var.destination-bucket-name
